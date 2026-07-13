@@ -1,6 +1,10 @@
 # Examen final — Programmation avec Python
 
+[![tests](https://github.com/zehair-louzza/banque/actions/workflows/tests.yml/badge.svg)](https://github.com/zehair-louzza/banque/actions/workflows/tests.yml)
+
 MBA Big Data & Intelligence Artificielle — M2 · UE05.B · 2025-2026
+
+> Le badge ci-dessus affiche automatiquement le résultat des tests (31 tests : Partie 2 + Partie 3), relancés par GitHub Actions à chaque push. Vert = tous les tests passent.
 
 ---
 
