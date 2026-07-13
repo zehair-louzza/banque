@@ -30,6 +30,10 @@ cd Partie_03/api_livres && uvicorn src.main:app --reload                        
 **Depuis VS Code** (sans terminal) : `Ctrl+Shift+P` → **Run Task** → choisissez
 « 1. Installer », puis « 2. Lancer tous les tests » ou « 3. Demarrer l'API livres ».
 
+🎬 Démonstration du flux complet (palette de commandes → choix de la tâche → tests verts) :
+
+![Démo Run Task dans VS Code : Ctrl+Shift+P, Tasks: Run Task, sélection de « 2. Lancer tous les tests », résultats pytest verts dans le terminal](docs/vscode_run_task.gif)
+
 > Résultats attendus : **10 passed, 1 skipped** (Partie 2) et **21 passed, 1 skipped** (Partie 3).
 > API accessible sur http://127.0.0.1:8000/docs
 
