@@ -4,7 +4,36 @@ MBA Big Data & Intelligence Artificielle — M2 · UE05.B · 2025-2026
 
 ---
 
-## ⚠️ À lire en premier — les 3 erreurs à éviter
+## 🚀 Démarrage rapide (recommandé)
+
+Des scripts automatiques créent le venv, installent les dépendances et lancent tout. Ouvrez un terminal dans le dossier `rendu_louzza_zehair` puis :
+
+**Windows** (double-cliquez sur le fichier, ou dans le terminal) :
+```powershell
+.\setup.bat        REM 1. installe tout (a faire une seule fois)
+.\run_tests.bat    REM 2. lance tous les tests
+.\run_api.bat      REM 3. demarre l'API livres
+```
+
+**macOS / Linux** :
+```bash
+bash setup.sh                                             # 1. installe tout (une seule fois)
+source .venv/bin/activate && cd Partie_02/module_bancaire && pytest && cd ../..   # tests P2
+source .venv/bin/activate && cd Partie_03/api_livres && pytest                    # tests P3
+cd Partie_03/api_livres && uvicorn src.main:app --reload                          # API
+```
+
+**Depuis VS Code** (sans terminal) : `Ctrl+Shift+P` → **Run Task** → choisissez
+« 1. Installer », puis « 2. Lancer tous les tests » ou « 3. Demarrer l'API livres ».
+
+> Résultats attendus : **10 passed, 1 skipped** (Partie 2) et **21 passed, 1 skipped** (Partie 3).
+> API accessible sur http://127.0.0.1:8000/docs
+
+La suite du document explique la méthode **manuelle** pas-à-pas et le dépannage.
+
+---
+
+## ⚠️ Les 3 erreurs à éviter
 
 Si vous avez des erreurs `ModuleNotFoundError` ou `attempted relative import`, c'est presque toujours l'une de ces 3 causes :
 

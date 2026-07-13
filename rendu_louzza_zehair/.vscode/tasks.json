@@ -1,0 +1,39 @@
+{
+  // Tâches accessibles via : Terminal > Exécuter la tâche...  (Ctrl+Shift+P > "Run Task")
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. Installer (setup)",
+      "type": "shell",
+      "windows": { "command": "${workspaceFolder}\\setup.bat" },
+      "linux": { "command": "bash ${workspaceFolder}/setup.sh" },
+      "osx": { "command": "bash ${workspaceFolder}/setup.sh" },
+      "problemMatcher": []
+    },
+    {
+      "label": "2. Lancer tous les tests",
+      "type": "shell",
+      "windows": { "command": "${workspaceFolder}\\run_tests.bat" },
+      "linux": {
+        "command": "source .venv/bin/activate && (cd Partie_02/module_bancaire && pytest) && (cd Partie_03/api_livres && pytest)"
+      },
+      "osx": {
+        "command": "source .venv/bin/activate && (cd Partie_02/module_bancaire && pytest) && (cd Partie_03/api_livres && pytest)"
+      },
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "3. Demarrer l'API livres",
+      "type": "shell",
+      "windows": { "command": "${workspaceFolder}\\run_api.bat" },
+      "linux": {
+        "command": "source .venv/bin/activate && cd Partie_03/api_livres && uvicorn src.main:app --reload"
+      },
+      "osx": {
+        "command": "source .venv/bin/activate && cd Partie_03/api_livres && uvicorn src.main:app --reload"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

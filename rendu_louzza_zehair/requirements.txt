@@ -1,0 +1,8 @@
+# Dépendances de tout le rendu (Partie 2 + Partie 3).
+# Installation : pip install -r requirements.txt
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+httpx
+pytest
