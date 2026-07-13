@@ -1,11 +1,103 @@
 # Partie 2 — Module bancaire
 
-Mini-module bancaire indépendant illustrant la programmation orientée objet, les règles métier et les exceptions personnalisées.
+Mini-module bancaire illustrant la programmation orientée objet, les règles métier et les exceptions personnalisées.
+
+---
+
+## 🟢 Marche à suivre pas-à-pas (VS Code)
+
+> Toutes les commandes se lancent dans le **terminal intégré de VS Code**
+> (menu **Terminal > Nouveau terminal**). Copiez-collez-les une par une.
+
+### Étape 1 — Se placer dans le bon dossier
+
+Depuis la racine `rendu_louzza_zehair`, entrez dans le dossier de la partie 2 :
+
+```powershell
+cd Partie_02\module_bancaire
+```
+
+> Sur macOS / Linux, utilisez les slashs : `cd Partie_02/module_bancaire`
+
+### Étape 2 — Créer l'environnement virtuel (une seule fois)
+
+Si vous n'avez pas déjà un `.venv` à la racine du projet, créez-en un ici :
+
+```powershell
+python -m venv .venv
+```
+
+### Étape 3 — Activer l'environnement virtuel
+
+**Windows (PowerShell)**
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux**
+```bash
+source .venv/bin/activate
+```
+
+Après activation, la ligne du terminal commence par `(.venv)`.
+
+> Si PowerShell bloque (« exécution de scripts désactivée »), lancez une fois :
+> ```powershell
+> Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+> ```
+> puis réessayez l'activation.
+
+### Étape 4 — Installer pytest
+
+```powershell
+pip install pytest
+```
+
+### Étape 5 — Lancer les tests
+
+```powershell
+pytest
+```
+
+✅ Résultat attendu :
+```
+10 passed, 1 skipped
+```
+
+> ⚠️ Ne cliquez PAS sur le bouton ▶️ « Run » de VS Code sur `compte.py` ou
+> `test_compte.py` : ces fichiers ne s'exécutent pas seuls. Utilisez `pytest`.
+
+### Étape 6 (optionnelle) — Lancer l'application interactive
+
+Pour tester manuellement les dépôts / retraits via un menu :
+
+```powershell
+python -m src.main
+```
+
+> Écrivez bien `python -m src.main` (avec un point, sans `.py`).
+> N'écrivez jamais `python src\main.py`.
+
+---
+
+## À copier-coller d'un seul bloc (Windows)
+
+```powershell
+cd Partie_02\module_bancaire
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install pytest
+pytest
+```
+
+---
 
 ## Structure
 
 ```
 module_bancaire/
+├── README.md
+├── pyproject.toml         # config pytest (pythonpath)
 ├── conftest.py            # rend `src` importable pour pytest
 ├── src/
 │   ├── __init__.py
@@ -16,6 +108,13 @@ module_bancaire/
     └── test_compte.py     # tests pytest
 ```
 
+## Règles métier
+
+1. Le solde initial ne peut pas être négatif.
+2. Un dépôt doit être strictement positif.
+3. Un retrait doit être strictement positif.
+4. Un retrait ne peut pas dépasser le solde disponible.
+
 ## Choix techniques
 
 - **Exceptions personnalisées** héritant de `Exception` : `MontantInvalideError` (montant non numérique, nul ou négatif) et `SoldeInsuffisantError` (retrait > solde). Elles portent un message métier clair.
@@ -24,26 +123,13 @@ module_bancaire/
 - **`afficher()`** retourne un dictionnaire (`{"titulaire": ..., "solde": ...}`) plutôt que d'imprimer, pour rester testable et réutilisable.
 - **Imports relatifs** (`from .exceptions import ...`) : `src` est un vrai package Python.
 
-## Règles métier
+## Dépannage
 
-1. Le solde initial ne peut pas être négatif.
-2. Un dépôt doit être strictement positif.
-3. Un retrait doit être strictement positif.
-4. Un retrait ne peut pas dépasser le solde disponible.
-
-## Lancer les tests
-
-Depuis `Partie_02/module_bancaire/` :
-
-```bash
-pytest
-```
-
-## Lancer l'application interactive
-
-```bash
-python -m src.main
-```
+| Erreur | Solution |
+|--------|----------|
+| `No module named 'pytest'` | Activez le venv puis `pip install pytest` |
+| `No module named 'src'` | Lancez `pytest` depuis `Partie_02\module_bancaire`, pas depuis un autre dossier |
+| `attempted relative import with no known parent package` | Vous avez cliqué « Run » sur un fichier : lancez plutôt `pytest` ou `python -m src.main` |
 
 ## Note de régression (Partie 4.2)
 

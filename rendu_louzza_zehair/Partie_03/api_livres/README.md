@@ -1,13 +1,127 @@
 # Partie 3 — API REST de gestion de livres (FastAPI)
 
-API REST permettant de gérer une collection de livres. Elle utilise **FastAPI**, **Pydantic**, **SQLAlchemy** et **SQLite**.
+API REST permettant de gérer une collection de livres, avec **FastAPI**, **Pydantic**, **SQLAlchemy** et **SQLite**.
+
+---
+
+## 🟢 Marche à suivre pas-à-pas (VS Code)
+
+> Toutes les commandes se lancent dans le **terminal intégré de VS Code**
+> (menu **Terminal > Nouveau terminal**). Copiez-collez-les une par une.
+
+### Étape 1 — Se placer dans le bon dossier
+
+Depuis la racine `rendu_louzza_zehair`, entrez dans le dossier de l'API :
+
+```powershell
+cd Partie_03\api_livres
+```
+
+> Sur macOS / Linux : `cd Partie_03/api_livres`
+
+### Étape 2 — Créer l'environnement virtuel (une seule fois)
+
+```powershell
+python -m venv .venv
+```
+
+### Étape 3 — Activer l'environnement virtuel
+
+**Windows (PowerShell)**
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux**
+```bash
+source .venv/bin/activate
+```
+
+Après activation, la ligne du terminal commence par `(.venv)`.
+
+> Si PowerShell bloque (« exécution de scripts désactivée »), lancez une fois :
+> ```powershell
+> Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+> ```
+
+### Étape 4 — Installer les dépendances
+
+```powershell
+pip install -r requirements.txt
+```
+
+Cela installe FastAPI, Uvicorn, SQLAlchemy, Pydantic, httpx et pytest.
+
+### Étape 5 — Lancer les tests
+
+```powershell
+pytest
+```
+
+✅ Résultat attendu :
+```
+21 passed, 1 skipped
+```
+
+### Étape 6 — Démarrer le serveur API
+
+```powershell
+uvicorn src.main:app --reload
+```
+
+> Si `uvicorn` n'est pas reconnu :
+> ```powershell
+> python -m uvicorn src.main:app --reload
+> ```
+
+### Étape 7 — Ouvrir l'API dans le navigateur
+
+- API : http://127.0.0.1:8000
+- Documentation interactive (Swagger) : http://127.0.0.1:8000/docs
+
+Depuis la page `/docs`, vous pouvez tester chaque route directement (bouton **Try it out**).
+
+Pour **arrêter le serveur** : `Ctrl+C` dans le terminal.
+
+---
+
+## À copier-coller d'un seul bloc (Windows)
+
+```powershell
+cd Partie_03\api_livres
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+pytest
+uvicorn src.main:app --reload
+```
+
+---
+
+## Tester l'API en ligne de commande (exemples)
+
+Une fois le serveur lancé, dans un **second** terminal :
+
+```powershell
+# Créer un livre
+curl -X POST http://127.0.0.1:8000/books -H "Content-Type: application/json" -d "{\"title\":\"Clean Code\",\"author\":\"Robert C. Martin\",\"year\":2008,\"rating\":5}"
+
+# Lister les livres
+curl http://127.0.0.1:8000/books
+
+# Consulter le statut métier du livre 1
+curl http://127.0.0.1:8000/books/1/status
+```
+
+---
 
 ## Structure
 
 ```
 api_livres/
-├── requirements.txt
 ├── README.md
+├── requirements.txt
+├── pyproject.toml         # config pytest (pythonpath)
 ├── conftest.py            # rend `src` importable pour pytest
 ├── src/
 │   ├── __init__.py
@@ -20,22 +134,6 @@ api_livres/
 └── tests/
     └── test_books.py
 ```
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-```
-
-## Lancement de l'API
-
-Depuis `Partie_03/api_livres/` :
-
-```bash
-uvicorn src.main:app --reload
-```
-
-Documentation interactive : http://127.0.0.1:8000/docs
 
 ## Endpoints
 
@@ -65,15 +163,15 @@ Documentation interactive : http://127.0.0.1:8000/docs
 - **Ordre des routes** : `/books/top` et `/books/search` sont déclarées avant `/books/{book_id}` pour éviter que « top »/« search » soient pris pour un identifiant.
 - **DELETE** renvoie 204 (No Content) car il n'y a pas de corps à retourner.
 
-## Tests
+## Dépannage
 
-Depuis `Partie_03/api_livres/` :
-
-```bash
-pytest
-```
-
-Les tests utilisent une base SQLite **en mémoire** (via un override de `get_db`) pour rester isolés de la base réelle.
+| Erreur | Solution |
+|--------|----------|
+| `No module named 'fastapi'` / `'sqlalchemy'` / `'pydantic'` | Activez le venv puis `pip install -r requirements.txt` |
+| `No module named 'src.database'` | Lancez `pytest` depuis `Partie_03\api_livres` |
+| `Could not import module "src.main"` | Placez-vous dans `Partie_03\api_livres` avant `uvicorn` |
+| `uvicorn n'est pas reconnu` | Utilisez `python -m uvicorn src.main:app --reload` |
+| Le port 8000 est occupé | `uvicorn src.main:app --reload --port 8001` |
 
 ## Note de régression (Partie 4.2)
 
