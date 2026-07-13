@@ -9,25 +9,17 @@ Mini-module bancaire illustrant la programmation orientée objet, les règles m�
 > Toutes les commandes se lancent dans le **terminal intégré de VS Code**
 > (menu **Terminal > Nouveau terminal**). Copiez-collez-les une par une.
 
-### Étape 1 — Se placer dans le bon dossier
+### Étape 1 — Créer l'environnement virtuel (une seule fois)
 
-Depuis la racine `rendu_louzza_zehair`, entrez dans le dossier de la partie 2 :
-
-```powershell
-cd Partie_02\module_bancaire
-```
-
-> Sur macOS / Linux, utilisez les slashs : `cd Partie_02/module_bancaire`
-
-### Étape 2 — Créer l'environnement virtuel (une seule fois)
-
-Si vous n'avez pas déjà un `.venv` à la racine du projet, créez-en un ici :
+Depuis la **racine** `rendu_louzza_zehair` (un seul `.venv` sert pour tout le rendu) :
 
 ```powershell
 python -m venv .venv
 ```
 
-### Étape 3 — Activer l'environnement virtuel
+> Déjà fait via `setup.bat` ou pour la Partie 3 ? Passez à l'étape 2.
+
+### Étape 2 — Activer l'environnement virtuel
 
 **Windows (PowerShell)**
 ```powershell
@@ -46,6 +38,14 @@ Après activation, la ligne du terminal commence par `(.venv)`.
 > Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 > ```
 > puis réessayez l'activation.
+
+### Étape 3 — Se placer dans le dossier de la partie 2
+
+```powershell
+cd Partie_02\module_bancaire
+```
+
+> Sur macOS / Linux, utilisez les slashs : `cd Partie_02/module_bancaire`
 
 ### Étape 4 — Installer pytest
 
@@ -82,10 +82,12 @@ python -m src.main
 
 ## À copier-coller d'un seul bloc (Windows)
 
+Depuis la racine `rendu_louzza_zehair` :
+
 ```powershell
-cd Partie_02\module_bancaire
 python -m venv .venv
 .venv\Scripts\Activate.ps1
+cd Partie_02\module_bancaire
 pip install pytest
 pytest
 ```
@@ -97,8 +99,7 @@ pytest
 ```
 module_bancaire/
 ├── README.md
-├── pyproject.toml         # config pytest (pythonpath)
-├── conftest.py            # rend `src` importable pour pytest
+├── pyproject.toml         # config pytest (pythonpath : rend `src` importable)
 ├── src/
 │   ├── __init__.py
 │   ├── exceptions.py      # MontantInvalideError, SoldeInsuffisantError

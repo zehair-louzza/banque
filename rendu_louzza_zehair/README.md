@@ -250,7 +250,6 @@ rendu_louzza_zehair/
 │   └── module_bancaire/              # POO, règles métier, exceptions
 │       ├── README.md
 │       ├── pyproject.toml            # config pytest (pythonpath)
-│       ├── conftest.py
 │       ├── src/  (compte.py, exceptions.py, main.py, __init__.py)
 │       └── tests/ (test_compte.py)
 └── Partie_03/
@@ -258,7 +257,7 @@ rendu_louzza_zehair/
         ├── README.md
         ├── requirements.txt
         ├── pyproject.toml            # config pytest (pythonpath)
-        ├── conftest.py
+        ├── docs/                     # capture d'écran + démo animée
         ├── src/  (main, database, models, schemas, services, routes)
         └── tests/ (test_books.py)
 ```

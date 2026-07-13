@@ -1,8 +1,4 @@
-# Dépendances de tout le rendu (Partie 2 + Partie 3).
-# Installation : pip install -r requirements.txt
-fastapi
-uvicorn[standard]
-sqlalchemy
-pydantic
-httpx
-pytest
+# Dépendances de tout le rendu.
+# Source unique de vérité : le requirements.txt de la Partie 3
+# (la Partie 2 n'a besoin que de pytest, déjà inclus).
+-r Partie_03/api_livres/requirements.txt
