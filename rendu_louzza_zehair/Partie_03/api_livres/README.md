@@ -81,6 +81,10 @@ uvicorn src.main:app --reload
 
 Depuis la page `/docs`, vous pouvez tester chaque route directement (bouton **Try it out**).
 
+Voici à quoi ressemble la documentation interactive générée automatiquement par FastAPI :
+
+![Documentation Swagger de l'API Books](docs/swagger_docs.png)
+
 Pour **arrêter le serveur** : `Ctrl+C` dans le terminal.
 
 ---
