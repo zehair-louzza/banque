@@ -89,6 +89,15 @@ Pour **arrêter le serveur** : `Ctrl+C` dans le terminal.
 
 ---
 
+## 🎬 Démo animée
+
+La démo ci-dessous montre l'API en action depuis la page `/docs` :
+création d'un livre via `POST /books` (bouton **Try it out** → saisie du JSON → **Execute** → réponse **201**), puis affichage de la liste via `GET /books`.
+
+![Démo animee de l'API Books](docs/api_demo.gif)
+
+---
+
 ## À copier-coller d'un seul bloc (Windows)
 
 ```powershell
