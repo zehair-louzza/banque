@@ -1,0 +1,25 @@
+{
+  // Interpréteur Python : pointe vers le venv créé à la racine du projet.
+  // VS Code choisit automatiquement Scripts\python.exe (Windows) ou bin/python (macOS/Linux).
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+
+  // Terminal : active automatiquement le venv à l'ouverture d'un nouveau terminal.
+  "python.terminal.activateEnvironment": true,
+
+  // Tests : active pytest dans l'onglet "Testing" de VS Code.
+  // Les deux dossiers de projet sont déclarés pour que la découverte fonctionne
+  // dans chaque partie (chacun a son propre pyproject.toml).
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [
+    "Partie_02/module_bancaire",
+    "Partie_03/api_livres"
+  ],
+
+  // Confort d'édition
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/*.pyc": true
+  }
+}

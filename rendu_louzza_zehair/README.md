@@ -90,11 +90,18 @@ python -m pip install --upgrade pip
 
 ## Étape 3 — Choisir le bon interpréteur dans VS Code
 
-Pour que VS Code utilise le venv (et arrête de souligner les imports) :
+Un fichier **`.vscode/settings.json`** est déjà fourni : il sélectionne automatiquement l'interpréteur du `.venv`, active pytest et l'activation auto du terminal. Il suffit donc, après avoir créé le venv (étape 2), de **fermer puis rouvrir VS Code** : l'interpréteur `.venv` sera pris en compte tout seul.
+
+Si jamais l'interpréteur n'est pas détecté, faites-le manuellement :
 
 1. `Ctrl+Shift+P` → tapez **Python: Select Interpreter**.
 2. Choisissez celui qui contient **`.venv`** (affiché `('.venv')`).
 3. Fermez et rouvrez le terminal pour qu'il reprenne le venv (`(.venv)` visible).
+
+> **macOS / Linux** : le fichier fourni pointe vers `.venv/Scripts/python.exe` (Windows). Sur Mac/Linux, remplacez cette ligne dans `.vscode/settings.json` par :
+> ```json
+> "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+> ```
 
 ---
 
