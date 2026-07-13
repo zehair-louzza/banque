@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# Ajoute la racine du projet au sys.path pour que `from src.main import ...`
+# fonctionne quand on lance pytest depuis Partie_03/api_livres/.
+pythonpath = ["."]
+testpaths = ["tests"]

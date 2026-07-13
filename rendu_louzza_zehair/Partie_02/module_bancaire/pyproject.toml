@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# Ajoute la racine du projet au sys.path pour que `from src.compte import ...`
+# fonctionne quand on lance pytest depuis Partie_02/module_bancaire/.
+pythonpath = ["."]
+testpaths = ["tests"]
