@@ -1,0 +1,37 @@
+<!-- NOTE DE LIVRAISON -->
+
+# Note de Livraison - Système Bancaire Robuste
+
+## Résumé du Projet
+
+Un système bancaire complet avec gestion d'exceptions métier, tests unitaires et détection de régression. 
+
+## Lancer les tests
+
+```bash
+cd banque
+python -m pytest test/test_compte_bancaire.py -v
+```
+**Résultat attendu** : 21 passed, 2 skipped
+
+## Règles métier implémentées
+
+1. **Montant strictement positif** : Via `MontantInvalideError` (montants ≤ 0 ou non numériques rejetés)
+2. **Solde ne dépasse pas limite** : Via `SoldeInsuffisantError` (retraits > solde rejetés)
+3. **Solde initial valide** : Via `MontantInvalideError` (solde initial < 0 rejeté)
+4. **Messages métier + traceback** : Affichage clair pour utilisateur + `/traceback.print_exc()` pour développeur
+
+## Régression : Test effectué
+
+**Modification volontaire** : Ligne 81 dans `compte_bancaire.py` : remplacer `self._solde -= montant` par `self._solde += montant`  
+**Résultat** : 5 tests échouent immédiatement (`test_retrait_valide_diminue_solde`, `test_multiples_retraits_successifs`, etc.)  
+**Voir** : `REGRESSION_DEMO.py` et `RAPPORT_REGRESSION.md` pour la démonstration
+
+## Marqueurs pytest utilisés
+
+1. `@pytest.mark.skip(reason="...")` : Test futur "frais bancaires" désactivé
+2. `@pytest.mark.skipif(sys.version_info < (3, 9), ...)` : Test type hints (Python 3.9+)
+
+## Couverture complète
+
+17 tests fonctionnels : dépôts, retraits, consultations, montants décimaux, gros montants, séquences complexes, erreurs métier
