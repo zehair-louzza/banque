@@ -6,7 +6,7 @@ Note d'ordre des routes : /books/top et /books/search sont déclarées AVANT
 /books/{book_id} pour éviter que FastAPI n'interprète "top" ou "search"
 comme un identifiant de livre.
 """
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from . import schemas, services
@@ -41,9 +41,24 @@ def livres_recommandes(db: Session = Depends(get_db)):
 
 
 @router.get("/books/search", response_model=list[schemas.BookResponse])
-def rechercher_par_auteur(author: str, db: Session = Depends(get_db)):
-    """Bonus : recherche de livres par auteur."""
-    return services.search_books_by_author(db, author)
+def rechercher_livres(
+    q: str | None = Query(default=None, description="Terme recherché dans le titre OU l'auteur"),
+    author: str | None = Query(default=None, description="Recherche par auteur (rétrocompatibilité)"),
+    db: Session = Depends(get_db),
+):
+    """Bonus : recherche de livres par titre ou auteur.
+
+    - `q` : correspondance partielle sur le titre OU l'auteur (recommandé).
+    - `author` : recherche par auteur uniquement (conservé pour compatibilité).
+    Au moins un des deux paramètres doit être fourni.
+    """
+    terme = q if q is not None else author
+    if not terme or not terme.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Fournissez un terme de recherche via 'q' (titre ou auteur) ou 'author'.",
+        )
+    return services.search_books(db, terme)
 
 
 @router.get("/books/{book_id}", response_model=schemas.BookResponse)

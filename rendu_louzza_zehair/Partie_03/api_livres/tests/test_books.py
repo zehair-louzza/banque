@@ -177,6 +177,28 @@ def test_bonus_search_by_author():
     assert len(resp.json()) == 1
 
 
+def test_bonus_search_par_titre():
+    client.post("/books", json={"title": "Clean Code", "author": "R. Martin", "year": 2008, "rating": 5})
+    client.post("/books", json={"title": "Le Petit Prince", "author": "Saint-Exupery", "year": 1943, "rating": 4})
+    resp = client.get("/books/search", params={"q": "clean"})
+    assert resp.status_code == 200
+    assert len(resp.json()) == 1
+    assert resp.json()[0]["title"] == "Clean Code"
+
+
+def test_bonus_search_q_titre_ou_auteur():
+    client.post("/books", json={"title": "Python Avance", "author": "Dupont", "year": 2020, "rating": 5})
+    client.post("/books", json={"title": "Autre", "author": "Python Fan", "year": 2020, "rating": 3})
+    resp = client.get("/books/search", params={"q": "python"})
+    assert resp.status_code == 200
+    assert len(resp.json()) == 2
+
+
+def test_bonus_search_sans_parametre_400():
+    resp = client.get("/books/search")
+    assert resp.status_code == 400
+
+
 # --------------------------------------------------------------------------
 # Marqueur pytest (Partie 4.3)
 # --------------------------------------------------------------------------

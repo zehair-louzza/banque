@@ -71,13 +71,22 @@ def compute_status(book: models.Book) -> str:
     return "bad"
 
 
-def search_books_by_author(db: Session, author: str):
-    """Bonus : recherche des livres par auteur (correspondance partielle)."""
+def search_books(db: Session, terme: str):
+    """Bonus : recherche des livres par titre OU auteur (correspondance partielle)."""
+    motif = f"%{terme}%"
     return (
         db.query(models.Book)
-        .filter(models.Book.author.ilike(f"%{author}%"))
+        .filter(models.Book.title.ilike(motif) | models.Book.author.ilike(motif))
         .all()
     )
+
+
+def search_books_by_author(db: Session, author: str):
+    """Bonus : recherche des livres par auteur (correspondance partielle).
+
+    Conservé pour rétrocompatibilité ; délègue à search_books.
+    """
+    return search_books(db, author)
 
 
 def get_top_books(db: Session):

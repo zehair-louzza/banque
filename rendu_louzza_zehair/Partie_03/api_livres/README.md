@@ -164,7 +164,7 @@ api_livres/
 | DELETE | `/books/{id}` | supprime un livre ou 404 |
 | GET | `/books/{id}/status` | statut métier du livre |
 | GET | `/books/top` | *(bonus)* livres avec note >= 4 |
-| GET | `/books/search?author=...` | *(bonus)* recherche par auteur |
+| GET | `/books/search?q=...` | *(bonus)* recherche par titre **ou** auteur (`author=...` accepté aussi) |
 
 ## Règle métier `compute_status`
 
